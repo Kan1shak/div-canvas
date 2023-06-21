@@ -1,3 +1,8 @@
+:root {
+    --borderSize : 1px;
+  }
+  
+
 body {
     background-color: rgb(141, 255, 65);
 }
@@ -16,7 +21,7 @@ body {
 }
 
 .container > div {
-    border: 1px solid black;
+    border: var(--borderSize) solid black;
     box-sizing: border-box;
 }
 
@@ -34,11 +39,11 @@ body {
     justify-items: center;
 }
 
-.toggle,.reset {
+.toggle,.misc {
     width:100%;
     height: 100%;
-    padding: 3rem;
-    text-align: center;
+    padding: 2rem;
+    text-align:center;
     background-color: rgb(44, 44, 44);
     border: 3px solid rgb(44, 44, 44);
     font-size: 2rem;
@@ -50,14 +55,14 @@ body {
     transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
 }
 
-.toggle:hover, .reset:hover{
+.toggle:hover, .misc:hover{
     cursor: pointer;
     background-color: rgb(141, 255, 65);
     color: rgb(73, 32, 255);
     ;
 }
 
-.toggle:active, .reset:active{
+.toggle:active, .misc:active{
     background-color: rgb(94, 216, 12);
 }
 

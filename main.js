@@ -1,12 +1,14 @@
-var canvasWidth = 32;
-var canvasHeight = 32;
-var r,g,b;
+var canvasWidth = 16;
+var canvasHeight = 16;
 var colorOption;
+var borderOption = false;
+const r = document.querySelector(':root');
 const mainContainer = document.querySelector('.main-container');
+const container = document.querySelector('.container');
 const resetButton = document.querySelector('.reset');
 const toggeleButtons = document.querySelectorAll('.toggle');
 const gridSlider = document.querySelector('#gridSlider');
-const container = document.querySelector('.container');
+const toggleBorder = document.querySelector('.toggle-border');
 
 function RandomColor() {
     const r = Math.ceil(Math.random() * 300);
@@ -37,8 +39,8 @@ function Shading(intensity){
 }
 
 function DefaultCanvasColors(i=1){
-    const r = (Math.ceil((1/Math.cos(Math.PI/256*i))/5)*255);
-    const g = Math.ceil((1/Math.sin(Math.PI/128 *i)/2)*255);
+    const r = (Math.ceil((1/Math.cos(Math.PI/4*i))/5)*255);
+    const g = Math.ceil((1/Math.sin(Math.PI/2 *i)/2)*255);
     const b = Math.ceil(Math.tan(i)*255);
     return `rgb(${r}, ${g}, ${g})`
 }
@@ -50,21 +52,17 @@ function SingleColour(r=0,g=0,b=0){
 function createCanvas(canvasWidth, canvasHeight){
     const container = document.createElement('div');
     container.classList.add('container');
-    console.log('yes');
     for (i = 1  ; i <= canvasWidth * canvasHeight; i++) {
         const div = document.createElement('div');
         div.classList.add('pixel');
-        div.style.backgroundColor = DefaultCanvasColors(1);
+        div.style.backgroundColor = DefaultCanvasColors(i);
         div.style.width = `${100/canvasWidth}%`;
         div.style.height = `${100/canvasHeight}%`;
         container.appendChild(div);
     }
     mainContainer.appendChild(container);
-}
-
-function allowPixelColor(){
     const pixels = document.querySelectorAll('.pixel');
-pixels.forEach((pixel)=>{
+    pixels.forEach((pixel)=>{
     //check if mouse is over the pixel
     pixel.addEventListener("mouseover", () => {
         isMouseOver = true;
@@ -111,6 +109,7 @@ resetButton.addEventListener('click', ()=>{
     });
 });
 }
+
 toggeleButtons.forEach(
     (button) => {
         button.addEventListener('click', ()=> { 
@@ -119,14 +118,22 @@ toggeleButtons.forEach(
     }
 );
 
-
 gridSlider.addEventListener('input', (gridSize)=>{
     const container = document.querySelector('.container');
     canvasWidth = gridSlider.value;
+    const gridSizeDisplay = document.querySelector('.grid-text');
+    gridSizeDisplay.textContent = `${canvasWidth} x ${canvasWidth}`;
     container.remove();
     createCanvas(canvasWidth,canvasWidth);
     allowPixelColor()
 });
 
+toggleBorder.addEventListener('click', ()=>{
+    borderOption = !borderOption;
+    if (borderOption){
+        r.style.setProperty('--borderSize', '0px');
+    } else{
+        r.style.setProperty('--borderSize', '1px');
+    }
+});
 createCanvas(canvasWidth,canvasWidth);
-allowPixelColor();
