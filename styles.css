@@ -12,29 +12,32 @@ body {
     flex-wrap: wrap;
     height: 40rem;
     width: 40rem;
-    margin: 3rem auto;
+    margin: 0 auto;
     -webkit-box-shadow: 13px 13px 0px -3px rgba(73, 32, 255,1);
     -moz-box-shadow: 13px 13px 0px -3px rgba(73, 32, 255,1);
     box-shadow: 13px 13px 0px -3px rgb(73, 32, 255);
-    border: 10px solid rgb(223, 216, 255);
+    border: 5px solid rgb(223, 216, 255);
+    border-radius: 5px;
     flex-shrink: 0;
 }
 
 .container > div {
     border: var(--borderSize) solid black;
     box-sizing: border-box;
+    transition: background-color 0.15s ease-in-out;
 }
 
 .main-container {
     display: flex;
     align-items: center;
+    justify-items: center;
     
 }
 
 .buttton-toggles {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.3rem;
     align-items: center;
     justify-items: center;
 }

@@ -1,5 +1,5 @@
-var canvasWidth = 16;
-var canvasHeight = 16;
+var canvasWidth = 24;
+var canvasHeight = 24;
 var colorOption;
 var borderOption = false;
 const r = document.querySelector(':root');
@@ -11,11 +11,12 @@ const gridSlider = document.querySelector('#gridSlider');
 const toggleBorder = document.querySelector('.toggle-border');
 
 function RandomColor() {
-    const r = Math.ceil(Math.random() * 300);
-    const g = Math.ceil(Math.random() * 300);
-    const b = Math.ceil(Math.random() * 300);
+    const r = Math.ceil(Math.random()*255);
+    const g = Math.ceil(Math.random()*255);
+    const b = Math.ceil(Math.random()*255);
     return `rgb(${r}, ${g}, ${b})`
 }
+    
 
 function Shading(intensity){
     //getting the intensity of Red
@@ -39,9 +40,9 @@ function Shading(intensity){
 }
 
 function DefaultCanvasColors(i=1){
-    const r = (Math.ceil((1/Math.cos(Math.PI/4*i))/5)*255);
-    const g = Math.ceil((1/Math.sin(Math.PI/2 *i)/2)*255);
-    const b = Math.ceil(Math.tan(i)*255);
+    const r = Math.ceil((1/Math.cos(i))*255);
+    const g = Math.ceil((1/Math.sin(i))*255);
+    const b = Math.ceil(Math.random()*Math.sin(i)*255);
     return `rgb(${r}, ${g}, ${g})`
 }
 
