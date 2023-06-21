@@ -1,11 +1,12 @@
-const canvasWidth = 32;
-const canvasHeight = 32;
+var canvasWidth = 32;
+var canvasHeight = 32;
 var r,g,b;
 var colorOption;
-const container = document.querySelector('.container');
+const mainContainer = document.querySelector('.main-container');
 const resetButton = document.querySelector('.reset');
 const toggeleButtons = document.querySelectorAll('.toggle');
-const gridSlider = document.getElementById('gridSlider');
+const gridSlider = document.querySelector('#gridSlider');
+const container = document.querySelector('.container');
 
 function RandomColor() {
     const r = Math.ceil(Math.random() * 300);
@@ -46,24 +47,23 @@ function SingleColour(r=0,g=0,b=0){
     return `rgb(${r}, ${g}, ${b})`
 }
 
-for (i = 1  ; i <= canvasWidth * canvasHeight; i++) {
-    const div = document.createElement('div');
-    div.classList.add('pixel');
-    div.style.backgroundColor = DefaultCanvasColors(1);
-    div.style.width = `${100/canvasWidth}%`;
-    div.style.height = `${100/canvasHeight}%`;
-    container.appendChild(div);
+function createCanvas(canvasWidth, canvasHeight){
+    const container = document.createElement('div');
+    container.classList.add('container');
+    console.log('yes');
+    for (i = 1  ; i <= canvasWidth * canvasHeight; i++) {
+        const div = document.createElement('div');
+        div.classList.add('pixel');
+        div.style.backgroundColor = DefaultCanvasColors(1);
+        div.style.width = `${100/canvasWidth}%`;
+        div.style.height = `${100/canvasHeight}%`;
+        container.appendChild(div);
+    }
+    mainContainer.appendChild(container);
 }
 
-toggeleButtons.forEach(
-    (button) => {
-        button.addEventListener('click', ()=> { 
-            colorOption = button.textContent;
-        });
-    }
-);
-
-const pixels = document.querySelectorAll('.pixel');
+function allowPixelColor(){
+    const pixels = document.querySelectorAll('.pixel');
 pixels.forEach((pixel)=>{
     //check if mouse is over the pixel
     pixel.addEventListener("mouseover", () => {
@@ -110,3 +110,23 @@ resetButton.addEventListener('click', ()=>{
         pixel.style.backgroundColor = 'rgb(255,255,255)';
     });
 });
+}
+toggeleButtons.forEach(
+    (button) => {
+        button.addEventListener('click', ()=> { 
+            colorOption = button.textContent;
+        });
+    }
+);
+
+
+gridSlider.addEventListener('input', (gridSize)=>{
+    const container = document.querySelector('.container');
+    canvasWidth = gridSlider.value;
+    container.remove();
+    createCanvas(canvasWidth,canvasWidth);
+    allowPixelColor()
+});
+
+createCanvas(canvasWidth,canvasWidth);
+allowPixelColor();
