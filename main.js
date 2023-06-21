@@ -3,11 +3,10 @@ const canvasHeight = 32;
 var r,g,b;
 var colorOption;
 const container = document.querySelector('.container');
-// const rgbButton = document.querySelector('.rgb');
-// const shadingButton = document.querySelector('.shading');
-// const singleColorButton = document.querySelector('.single-color');
 const resetButton = document.querySelector('.reset');
 const toggeleButtons = document.querySelectorAll('.toggle');
+const gridSlider = document.getElementById('gridSlider');
+
 function RandomColor() {
     const r = Math.ceil(Math.random() * 300);
     const g = Math.ceil(Math.random() * 300);

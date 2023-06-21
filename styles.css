@@ -60,3 +60,10 @@ body {
 .toggle:active, .reset:active{
     background-color: rgb(94, 216, 12);
 }
+
+.grid-size {
+    padding-top: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
