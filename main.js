@@ -1,22 +1,56 @@
 const container = document.querySelector('.container');
-const canvasWidth = 25;
-const canvasHeight = 25;
+const canvasWidth = 16;
+const canvasHeight = 16;
+var r,g,b;
+function RandomColor() {
+    const r = Math.ceil(Math.random() * 300);
+    const g = Math.ceil(Math.random() * 300);
+    const b = Math.ceil(Math.random() * 300);
+    return `rgb(${r}, ${g}, ${b})`
+}
 
-for (i = 0; i < canvasWidth * canvasHeight; i++) {
+function Shading(intensity){
+    //getting the intensity of Red
+    var r = intensity.split(",")[0];
+    r = r.substring(4, r.length);
+    const intensityOutr = Math.ceil(parseInt(r) - (255/10));
+    //console.log(intensityOutr);
+    
+    //getting the intensity of Green
+    var g = intensity.split(",")[1];
+    g = g.substring(1, g.length);
+    const intensityOutg = Math.ceil(parseInt(g) - (255/10));
+    //console.log(intensityOutg);
+    
+    //getting the intensity of Blue
+    var b = intensity.split(",")[2];
+    b = b.substring(1, b.length-1);
+    const intensityOutb = Math.ceil(parseInt(b) - (255/10));
+    //console.log(intensityOutb);
+    return `rgb(${intensityOutr}, ${intensityOutg}, ${intensityOutb})`;
+}
+
+function DefaultCanvasColors(i=1){
+    const r = (Math.ceil((1/Math.cos(Math.PI/256*i))/5)*255);
+    const g = Math.ceil((1/Math.sin(Math.PI/128 *i)/2)*255);
+    const b = Math.ceil(Math.tan(i)*255);
+    return `rgb(${r}, ${g}, ${g})`
+}
+
+function SingleColour(r,g,b){
+    return `rgb(${r}, ${g}, ${b})`
+}
+
+for (i = 1  ; i <= canvasWidth * canvasHeight; i++) {
     const div = document.createElement('div');
     div.classList.add('pixel');
-    const r = Math.ceil((1/Math.cos(i))*255);
-    const g = Math.ceil((1/Math.sin(i))*255);
-    const b = Math.ceil(Math.random()*Math.sin(i)*255);
-
+    div.style.backgroundColor = DefaultCanvasColors(1);
     div.style.width = `${100/canvasWidth}%`;
     div.style.height = `${100/canvasHeight}%`;
-    div.style.backgroundColor = `rgb(${r}, ${g}, ${g})`;
     container.appendChild(div);
 }
 
 const pixels = document.querySelectorAll('.pixel');
-
 pixels.forEach((pixel)=>{
     //check if mouse is over the pixel
     pixel.addEventListener("mouseover", () => {
@@ -37,10 +71,10 @@ pixels.forEach((pixel)=>{
         isMouseDown = false;
       });
       
-      const checkEvents = () => {
-        //works only if both mouse is over the pixel and pressed down
-        if (isMouseOver && isMouseDown) {
-          pixel.style.backgroundColor = "gold";
-        }
-      };
+    const checkEvents = () => {
+    //works only if both mouse is over the pixel and pressed down
+    if (isMouseOver && isMouseDown) {
+        pixel.style.backgroundColor = Shading(pixel.style.backgroundColor);
+    }
+    };
 });
