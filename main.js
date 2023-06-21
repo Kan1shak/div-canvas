@@ -1,7 +1,13 @@
-const container = document.querySelector('.container');
-const canvasWidth = 16;
-const canvasHeight = 16;
+const canvasWidth = 32;
+const canvasHeight = 32;
 var r,g,b;
+var colorOption;
+const container = document.querySelector('.container');
+// const rgbButton = document.querySelector('.rgb');
+// const shadingButton = document.querySelector('.shading');
+// const singleColorButton = document.querySelector('.single-color');
+const resetButton = document.querySelector('.reset');
+const toggeleButtons = document.querySelectorAll('.toggle');
 function RandomColor() {
     const r = Math.ceil(Math.random() * 300);
     const g = Math.ceil(Math.random() * 300);
@@ -37,7 +43,7 @@ function DefaultCanvasColors(i=1){
     return `rgb(${r}, ${g}, ${g})`
 }
 
-function SingleColour(r,g,b){
+function SingleColour(r=0,g=0,b=0){
     return `rgb(${r}, ${g}, ${b})`
 }
 
@@ -49,6 +55,14 @@ for (i = 1  ; i <= canvasWidth * canvasHeight; i++) {
     div.style.height = `${100/canvasHeight}%`;
     container.appendChild(div);
 }
+
+toggeleButtons.forEach(
+    (button) => {
+        button.addEventListener('click', ()=> { 
+            colorOption = button.textContent;
+        });
+    }
+);
 
 const pixels = document.querySelectorAll('.pixel');
 pixels.forEach((pixel)=>{
@@ -74,7 +88,26 @@ pixels.forEach((pixel)=>{
     const checkEvents = () => {
     //works only if both mouse is over the pixel and pressed down
     if (isMouseOver && isMouseDown) {
-        pixel.style.backgroundColor = Shading(pixel.style.backgroundColor);
+        
+        
+        if (colorOption === 'RGB'){
+            pixel.style.backgroundColor = RandomColor();
+        }
+        else if (colorOption === 'Shading'){
+            pixel.style.backgroundColor = Shading(pixel.style.backgroundColor);
+        }
+        else if(colorOption === 'Black'){
+            pixel.style.backgroundColor = SingleColour(0,0,0);
+        }
+        else{
+            pixel.style.backgroundColor = SingleColour(255,80,255);
+        }
     }
     };
+});
+
+resetButton.addEventListener('click', ()=>{
+    pixels.forEach((pixel)=>{
+        pixel.style.backgroundColor = 'rgb(255,255,255)';
+    });
 });
